@@ -18,7 +18,34 @@ const createUser = async (req, res) => {
   }
 }
 
+const updateUser = async (req, res) => {
+  try {
+    let userId = parseInt(req.params.userId)
+    let user = await User.update(req.body, {
+      where: { id: userId },
+      returning: true
+    })
+    res.send(user)
+  } catch (error) {
+    throw error
+  }
+}
+
+const deleteUser = async (req, res) => {
+  try {
+    let userId = parseInt(req.params.userId)
+    await User.destroy({
+      where: { id: userId }
+    })
+    res.send({ message: `Deleted user with an id of ${userId}` })
+  } catch (error) {
+    throw error
+  }
+}
+
 module.exports = {
   getAllUsers,
-  createUser
+  createUser,
+  updateUser,
+  deleteUser
 }
