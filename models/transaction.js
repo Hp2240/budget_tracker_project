@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       tansactionNumber: DataTypes.STRING,
       amount: DataTypes.STRING,
       accountId: {
-        typ: DataTypes.INTEGER,
+        type: DataTypes.INTEGER,
         onDelete: 'CASCADE',
         references: {
           model: 'accounts',
