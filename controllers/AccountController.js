@@ -24,7 +24,7 @@ const findAccountsByUser = async (req, res) => {
 
 const createAccount = async (req, res) => {
   try {
-    let userId = parseInt(req.params.userId)
+    let userId = parseInt(req.body.userId)
     let account = await Account.create({
       ...req.body,
       userId
