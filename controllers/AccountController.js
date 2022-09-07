@@ -1,5 +1,4 @@
 const { Account, User } = require('../models')
-const account = require('../models/account')
 
 const findAllAccounts = async (req, res) => {
   try {
@@ -10,9 +9,22 @@ const findAllAccounts = async (req, res) => {
   }
 }
 
+const findAccountsByUser = async (req, res) => {
+  try {
+    let userId = parseInt(req.params.userId)
+    let accounts = await Account.findAll({
+      where: { userId: userId },
+      include: [{ model: User }]
+    })
+    res.send(accounts)
+  } catch (error) {
+    throw error
+  }
+}
+
 const createAccount = async (req, res) => {
   try {
-    let userId = parseInt(req.body.userId)
+    let userId = parseInt(req.params.userId)
     let account = await Account.create({
       ...req.body,
       userId
@@ -23,7 +35,22 @@ const createAccount = async (req, res) => {
   }
 }
 
+const updateAccount = async (req, res) => {
+  try {
+    let accountId = parseInt(req.params.accountId)
+    let account = await Account.update(req.body, {
+      where: { id: accountId },
+      returning: true
+    })
+    res.send(account)
+  } catch (error) {
+    throw error
+  }
+}
+
 module.exports = {
   findAllAccounts,
-  createAccount
+  findAccountsByUser,
+  createAccount,
+  updateAccount
 }
