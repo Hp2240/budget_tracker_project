@@ -48,9 +48,22 @@ const updateAccount = async (req, res) => {
   }
 }
 
+const deleteAccount = async (req, res) => {
+  try {
+    let accountId = parseInt(req.params.accountId)
+    await Account.destroy({
+      where: { id: commenId }
+    })
+    res.send({ message: `Deleted account with an id of ${accountId}` })
+  } catch (error) {
+    throw error
+  }
+}
+
 module.exports = {
   findAllAccounts,
   findAccountsByUser,
   createAccount,
-  updateAccount
+  updateAccount,
+  deleteAccount
 }
