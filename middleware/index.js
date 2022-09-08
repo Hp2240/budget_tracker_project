@@ -20,7 +20,7 @@ const createToken = (payload) => {
   return token
 }
 
-const verifyToken = (req, res) => {
+const verifyToken = (req, res, next) => {
   const { token } = res.locals
   try {
     let payload = jwt.verify(token, APP_SECRET)
@@ -46,9 +46,9 @@ const stripToken = (req, res, next) => {
 }
 
 module.exports = {
-  stripToken,
-  verifyToken,
-  createToken,
+  hashPassword,
   comparePassword,
-  hashPassword
+  createToken,
+  verifyToken,
+  stripToken
 }
