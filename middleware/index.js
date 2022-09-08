@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 require('dotenv').config()
 
 const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS)
-const APP_SECRET = process.env.APP_SECRAET
+const APP_SECRET = process.env.APP_SECRET
 
 const hashPassword = async (password) => {
   let hashedPassword = await bcrypt.hash(password, SALT_ROUNDS)
@@ -34,6 +34,7 @@ const verifyToken = (req, res, next) => {
 }
 
 const stripToken = (req, res, next) => {
+  console.log('strip token')
   try {
     const token = req.headers['authorization'].split(' ')[1]
     if (token) {
