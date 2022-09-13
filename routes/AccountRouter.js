@@ -10,7 +10,17 @@ Router.post(
   middleware.verifyToken,
   controller.createAccount
 )
-Router.put('/:accountId', controller.updateAccount)
-Router.delete('/:accountId', controller.deleteAccount)
+Router.put(
+  '/:accountId',
+  middleware.stripToken,
+  middleware.verifyToken,
+  controller.updateAccount
+)
+Router.delete(
+  '/:accountId',
+  middleware.stripToken,
+  middleware.verifyToken,
+  controller.deleteAccount
+)
 
 module.exports = Router

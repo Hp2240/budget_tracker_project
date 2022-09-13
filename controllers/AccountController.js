@@ -52,7 +52,7 @@ const deleteAccount = async (req, res) => {
   try {
     let accountId = parseInt(req.params.accountId)
     await Account.destroy({
-      where: { id: commenId }
+      where: { id: accountId }
     })
     res.send({ message: `Deleted account with an id of ${accountId}` })
   } catch (error) {
